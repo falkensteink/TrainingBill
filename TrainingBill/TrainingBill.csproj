@@ -54,6 +54,12 @@
       <DependentUpon>AddExpense.cs</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="EditHorse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditHorse.Designer.cs">
+      <DependentUpon>EditHorse.cs</DependentUpon>
+    </Compile>
     <Compile Include="MonthlyRollup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     </Compile>
     <EmbeddedResource Include="AddExpense.resx">
       <DependentUpon>AddExpense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditHorse.resx">
+      <DependentUpon>EditHorse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MonthlyRollup.resx">
       <DependentUpon>MonthlyRollup.cs</DependentUpon>

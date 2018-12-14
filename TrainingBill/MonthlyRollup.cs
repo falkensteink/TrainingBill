@@ -75,7 +75,7 @@ namespace TrainingBill
         {
             string sqlRollup;
             string CurrentMonth = DateTime.Now.Month.ToString();
-            sqlRollup = "SELECT Horses.HorseName AS Horse, Horses.OwnerName AS Owner, Sum(Expenses.ExpenseCost) AS MonthlyExpenses FROM(Horses LEFT JOIN Expenses ON Expenses.HorseName = Horses.HorseName) WHERE ExpenseMonth = " + CurrentMonth + " GROUP BY Horses.HorseName, Horses.OwnerName;";
+            sqlRollup = "Select Horses.HorseName, Horses.OwnerName, (Select Sum(Expenses.ExpenseCost) from Expenses where Horses.HorseName = Expenses.HorseName and Expenses.ExpenseMonth = " +CurrentMonth+") as MonthlyExpenses from Horses;";
             return sqlRollup;
         }
 
@@ -102,14 +102,7 @@ namespace TrainingBill
             this.Hide();
             add.Show();
         }
-        public void dgvMonthlyRollup_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            HorseName = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
-            OwnerName = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
-            MonthlyExpense = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
-
-
-        }
+       
         private void preloadValues()
         {
             HorseName = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
@@ -121,6 +114,23 @@ namespace TrainingBill
             Database db = new Database();
            dgvMonthlyRollup.DataSource = db.ExecuteDBCommands(GenerateRollup());
             preloadValues();
+        }
+
+        private void dgvMonthlyRollup_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            HorseName = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
+            OwnerName = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
+            MonthlyExpense = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
+        }
+
+        private void btnAddHorse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditHorse_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
