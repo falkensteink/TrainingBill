@@ -37,8 +37,17 @@ namespace TrainingBill
 
         public ArrayList getMonthlyBill(string HorseName, int Month)
         {
-            string sql = "SELECT * from Expenses where Expenses.HorseName = " + HorseName + " and Expenses.ExpenseMonth =" + Month + "";
-            ArrayList HorseExpenses = db.DBGet(sql);
+            string sql = "SELECT Expenses.ExpenseCost, Expenses.ExpenseType, Expenses.ExpenseQuantity, Expenses.ExpenseQuantityType FROM Expenses Inner Join Horses on Horses.HorseName = Expenses.HorseName WHERE(((Horses.OwnerName) =[Name]) AND((Expenses.ExpenseMonth) =[Month]));";
+
+
+
+
+
+
+
+            Expense HorseExpenses  = new Expense();
+                db.DBGet(sql);
+            
             return HorseExpenses;
         }
         public string [] getHorsesByOwner (string Owner)
@@ -54,6 +63,6 @@ namespace TrainingBill
 
     }
 }
-}
+
 
 

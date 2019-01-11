@@ -8,6 +8,7 @@ namespace TrainingBill
     class Database
     {
         string TrainingBillconnection = ConfigurationManager.ConnectionStrings["TrainingBill.Properties.Settings.TrainingBillConnectionString"].ConnectionString;
+
         public DataTable ExecuteDBCommands(string sql)
         {
             DataTable Rollup = new DataTable();
@@ -63,5 +64,9 @@ namespace TrainingBill
             }
             return Values;
         }
+
+
+        YourObjectName a = new YourObjectName();
+        a.Username = Reader['Username'].ToString();
     }
 }

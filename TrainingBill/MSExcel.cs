@@ -21,17 +21,12 @@ namespace TrainingBill
             Excel.Worksheet ws1;
             ws1 = wb.Worksheets.get_Item(1);
 
-
-
-
             App.Quit();
 
             Marshal.ReleaseComObject(ws1);
             Marshal.ReleaseComObject(wb);
             Marshal.ReleaseComObject(App);
-            
-
-
+         
         }
         public Excel.Worksheet MakeHeaders( Excel.Worksheet WorkSheet )
         {
