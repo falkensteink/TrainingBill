@@ -22,54 +22,10 @@ namespace TrainingBill
             InitializeComponent();
         }
 
-        private string horseName;
-        private string ownerName;
-        private string monthlyExpense;
         public Horse horse = new Horse();
-        public string HorseName
-        {
-            get
-            {
-                return horseName;
-            }
-
-            set
-            {
-                horseName = value;
-            }
-        }
-
-        public string OwnerName
-        {
-            get
-            {
-                return ownerName;
-            }
-
-            set
-            {
-                ownerName = value;
-            }
-        }
-
-        public string MonthlyExpense
-        {
-            get
-            {
-                return monthlyExpense;
-            }
-
-            set
-            {
-                monthlyExpense = value;
-            }
-        }
-
         private void MonthlyRollup_Load(object sender, EventArgs e)
         {
-
             RollupRefresh();
-
         }
         public string GenerateRollup()
         {
@@ -78,7 +34,6 @@ namespace TrainingBill
             sqlRollup = "Select Horses.HorseName, Horses.OwnerName, (Select Sum(Expenses.ExpenseCost) from Expenses where Horses.HorseName = Expenses.HorseName and Expenses.ExpenseMonth = " + CurrentMonth + ") as MonthlyExpenses from Horses;";
             return sqlRollup;
         }
-
         private void btnAddExpense_Click(object sender, EventArgs e)
         {
             //Load Second form with all infomation on Selected horse
@@ -99,7 +54,6 @@ namespace TrainingBill
             add.ShowDialog();
 
         }
-
         private void preloadValues()
         {
             horse.Name = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
@@ -112,25 +66,21 @@ namespace TrainingBill
             dgvMonthlyRollup.DataSource = db.ExecuteDBCommands(GenerateRollup());
             preloadValues();
         }
-
         private void dgvMonthlyRollup_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             horse.Name = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
             horse.Owner = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
             horse.MonthlyTotal = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
         }
-
         private void btnAddHorse_Click(object sender, EventArgs e)
         {
             EditHorse ed = new EditHorse(this);
             ed.ShowDialog();
-
-
         }
-
         private void btnEditHorse_Click(object sender, EventArgs e)
         {
-
+            EditHorse ed = new EditHorse(horse,this);
+            ed.ShowDialog();
         }
     }
 }

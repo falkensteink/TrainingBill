@@ -37,8 +37,16 @@ namespace TrainingBill
         {
             cbHorse.DataSource =db.getHorses();
             cbOwner.DataSource = db.getOwners();
-            cbHorse.Text = "";
-            cbOwner.Text = "";
-        }
+            if (horse.Name == null || horse.Owner == null)
+            {
+                cbHorse.Text = "";
+                cbOwner.Text = "";
+            }
+            else
+            {
+                cbHorse.Text = horse.Name;
+                cbOwner.Text = horse.Owner;
+            }
+            }
     }
 }

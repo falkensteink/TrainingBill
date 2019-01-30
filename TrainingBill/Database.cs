@@ -10,7 +10,6 @@ namespace TrainingBill
     class Database
     {
         string TrainingBillconnection = ConfigurationManager.ConnectionStrings["TrainingBill.Properties.Settings.TrainingBillConnectionString"].ConnectionString;
-
         public DataTable ExecuteDBCommands(string sql)
         {
             DataTable Rollup = new DataTable();
@@ -66,13 +65,11 @@ namespace TrainingBill
             }
             return Values;
         }
-        public List<Expense> DBGetExpense(string Owner)
+        public List<Expense> DBGetExpense(string owner, int month)
         {
-            string sql = "SELECT Expenses.ExpenseCost, Expenses.ExpenseType, Expenses.ExpenseQuantity, Expenses.ExpenseQuantityType FROM Expenses Inner Join Horses on Horses.HorseName = Expenses.HorseName WHERE(((Horses.OwnerName) =[Name]) AND((Expenses.ExpenseMonth) =[Month]));";
-
+            string sql = "SELECT Expenses.ExpenseCost, Expenses.ExpenseType, Expenses.ExpenseQuantity, Expenses.ExpenseQuantityType FROM Expenses Inner Join Horses on Horses.HorseName = Expenses.HorseName WHERE(((Horses.OwnerName) ="+owner+ ") AND((Expenses.ExpenseMonth) =" + month + "));";
             List<Expense> expense = new List<Expense>();
             Expense temp = new Expense();
-
             using (OleDbConnection connection = new OleDbConnection(TrainingBillconnection))
             {
                 using (OleDbCommand command = new OleDbCommand(sql, connection))
@@ -89,12 +86,10 @@ namespace TrainingBill
                         expense.Add(temp);
                         temp = new Expense();
                     }
-
                 }
             }
             return expense;
         }
-    
         public string[] getHorsesByOwner(string Owner)
         {
             string sql = "SELECT HorseName from Horses where Horses.OwnerName = " + Owner + "";
