@@ -13,55 +13,20 @@ namespace TrainingBill
 {
     public partial class AddExpense : Form
     {
-        public string month;
-        private string horseName;
-        private string ownerName;
-        private string monthlyExpense;
-        public string HorseName
-        {
-            get
-            {
-                return horseName;
-            }
-
-            set
-            {
-                horseName = value;
-            }
-        }
-        public string OwnerName
-        {
-            get
-            {
-                return ownerName;
-            }
-
-            set
-            {
-                ownerName = value;
-            }
-        }
-        public string MonthlyExpense
-        {
-            get
-            {
-                return monthlyExpense;
-            }
-
-            set
-            {
-                monthlyExpense = value;
-            }
-        }
-        public AddExpense()
+        public Horse horse;
+        public Expense expense = new Expense();
+        public MonthlyRollup parent;
+        public AddExpense(Horse _horse, MonthlyRollup _parent)
         {
             InitializeComponent();
+            horse = _horse;
+            parent = _parent;
         }
         Database db = new Database();
         private void AddExpense_Load(object sender, EventArgs e)
         {
            
-            Intro.Text = "Adding an expense to " + this.HorseName + " owned by " + this.OwnerName + ".";
+            Intro.Text = "Adding an expense to " + horse.Name + " owned by " + horse.Owner + ".";
             cbExpenseTypes.DataSource = db.DBGet(GenerateExpenseTypes());
             cbExpenseTypes.Text = "";
             MonthLoader();
@@ -69,17 +34,24 @@ namespace TrainingBill
         }       
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            string ExpenseType;
+            expense.Cost = Convert.ToInt32(txtExpenseAmount.Text);
+            expense.Month = MonthToNum(cbMonth.Text);
             if (cbExpenseTypes.Text != null)
-                {ExpenseType = cbExpenseTypes.Text;
-                if (cbExpenseTypes.Items.Contains(cbExpenseTypes.Text)) { }
-                else { db.DBWrite(GeneratePutExpenseType("Expense", ExpenseType)); }  }
-            else{ExpenseType = cbExpenseTypes.SelectedValue.ToString();
+                {
+                expense.Type = cbExpenseTypes.Text;
+                if (cbExpenseTypes.Items.Contains(cbExpenseTypes.Text))
+                { }
+                else {
+                    db.DBWrite(GeneratePutExpenseType("Expense", expense.Type));
+                }
             }
-            bool success = db.DBWrite(GeneratePutExpense(ExpenseType, txtExpenseAmount.Text, MonthToNum(cbMonth.SelectedItem.ToString()), HorseName));
+            else{
+                expense.Type = cbExpenseTypes.SelectedValue.ToString();
+            }
+            bool success = db.DBWrite(GeneratePutExpense(expense));
             if (success)
             {
-                string message = "Expense of $" + txtExpenseAmount.Text + " for " + ExpenseType + " has been added to " + HorseName + " for the month of " + cbMonth.SelectedItem.ToString() + ".";
+                string message = "Expense of $" + expense.Cost + " for " +  expense.Type + " has been added to " + horse.Name + " for the month of " + cbMonth.SelectedItem.ToString() + ".";
                 string caption = "Expense Added";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
@@ -96,15 +68,13 @@ namespace TrainingBill
             }
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            MonthlyRollup MR = new MonthlyRollup();
-            MR.Show();
-            MR.RollupRefresh();
+            parent.RollupRefresh();
             this.Close();
         }
-        public string GeneratePutExpense(string ExpenseType, string ExpenseCost, int Month, string HorseName)
+        public string GeneratePutExpense(Expense expense)
         {
             string sql;
-            sql = "INSERT INTO Expenses(ExpenseType, ExpenseCost, ExpenseMonth, HorseName) VALUES(\"" + ExpenseType + "\"," + ExpenseCost + "," + Month + ",\"" + HorseName + "\");";
+            sql = "INSERT INTO Expenses(ExpenseType, ExpenseCost, ExpenseMonth, HorseName) VALUES(\"" + expense.Type + "\"," + expense.Cost + "," + expense.Month + ",\"" + horse.Name + "\");";
             return sql;
         }
         public string GenerateExpenseTypes()

@@ -12,10 +12,33 @@ namespace TrainingBill
 {
     public partial class EditHorse : Form
     {
-        public EditHorse()
+        Horse horse;
+        Database db= new Database();
+        MonthlyRollup parent;
+        public EditHorse(MonthlyRollup _parent)
         {
             InitializeComponent();
+            horse = new Horse();
+            parent = _parent;
+        }
+        public EditHorse(Horse _horse, MonthlyRollup _parent)
+        {
+            InitializeComponent();
+            horse = _horse;
+            parent = _parent;
+        }
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            
+
         }
 
+        private void EditHorse_Load(object sender, EventArgs e)
+        {
+            cbHorse.DataSource =db.getHorses();
+            cbOwner.DataSource = db.getOwners();
+            cbHorse.Text = "";
+            cbOwner.Text = "";
+        }
     }
 }

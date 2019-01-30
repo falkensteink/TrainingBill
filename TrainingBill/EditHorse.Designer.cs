@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.cbHorse = new System.Windows.Forms.ComboBox();
+            this.cbOwner = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -54,20 +54,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Owner Name";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(155, 97);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(155, 123);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
-            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(85, 262);
@@ -76,6 +62,7 @@
             this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnCancel
             // 
@@ -86,19 +73,36 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // cbHorse
+            // 
+            this.cbHorse.FormattingEnabled = true;
+            this.cbHorse.Location = new System.Drawing.Point(159, 94);
+            this.cbHorse.Name = "cbHorse";
+            this.cbHorse.Size = new System.Drawing.Size(121, 21);
+            this.cbHorse.TabIndex = 6;
+            // 
+            // cbOwner
+            // 
+            this.cbOwner.FormattingEnabled = true;
+            this.cbOwner.Location = new System.Drawing.Point(159, 121);
+            this.cbOwner.Name = "cbOwner";
+            this.cbOwner.Size = new System.Drawing.Size(121, 21);
+            this.cbOwner.TabIndex = 7;
+            // 
             // EditHorse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 332);
+            this.Controls.Add(this.cbOwner);
+            this.Controls.Add(this.cbHorse);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditHorse";
             this.Text = "EditHorse";
+            this.Load += new System.EventHandler(this.EditHorse_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,9 +112,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox cbHorse;
+        private System.Windows.Forms.ComboBox cbOwner;
     }
 }

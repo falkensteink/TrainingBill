@@ -34,10 +34,10 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.dgvMonthlyRollup = new System.Windows.Forms.DataGridView();
-            this.trainingBillDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.trainingBillDataSet = new TrainingBill.TrainingBillDataSet();
             this.btnAddHorse = new System.Windows.Forms.Button();
             this.btnEditHorse = new System.Windows.Forms.Button();
+            this.trainingBillDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.trainingBillDataSet = new TrainingBill.TrainingBillDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMonthlyRollup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trainingBillDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trainingBillDataSet)).BeginInit();
@@ -74,7 +74,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(615, 12);
+            this.btnClose.Location = new System.Drawing.Point(615, 8);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(88, 41);
             this.btnClose.TabIndex = 3;
@@ -97,16 +97,6 @@
             this.dgvMonthlyRollup.TabIndex = 4;
             this.dgvMonthlyRollup.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMonthlyRollup_CellClick);
             // 
-            // trainingBillDataSetBindingSource
-            // 
-            this.trainingBillDataSetBindingSource.DataSource = this.trainingBillDataSet;
-            this.trainingBillDataSetBindingSource.Position = 0;
-            // 
-            // trainingBillDataSet
-            // 
-            this.trainingBillDataSet.DataSetName = "TrainingBillDataSet";
-            this.trainingBillDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // btnAddHorse
             // 
             this.btnAddHorse.Location = new System.Drawing.Point(363, 208);
@@ -126,6 +116,16 @@
             this.btnEditHorse.Text = "Edit Horse";
             this.btnEditHorse.UseVisualStyleBackColor = true;
             this.btnEditHorse.Click += new System.EventHandler(this.btnEditHorse_Click);
+            // 
+            // trainingBillDataSetBindingSource
+            // 
+            this.trainingBillDataSetBindingSource.DataSource = this.trainingBillDataSet;
+            this.trainingBillDataSetBindingSource.Position = 0;
+            // 
+            // trainingBillDataSet
+            // 
+            this.trainingBillDataSet.DataSetName = "TrainingBillDataSet";
+            this.trainingBillDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // MonthlyRollup
             // 

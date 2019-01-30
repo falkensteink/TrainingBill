@@ -39,9 +39,9 @@ namespace TrainingBill
         public Excel.Worksheet AddExpense(Excel.Worksheet WorkSheet, Expense Expense, int Row, int Column)
         {
             WorkSheet.Cells[Row, Column] = Expense.Quantity;
-            WorkSheet.Cells[Row, Column] = Expense.Description;
-            WorkSheet.Cells[Row, Column] = Expense.UnitPrice;
-            WorkSheet.Cells[Row, Column] = Expense.Total;
+            WorkSheet.Cells[Row, Column] = Expense.Type;
+            WorkSheet.Cells[Row, Column] = Expense.Cost;
+            
 
             return WorkSheet;
         }

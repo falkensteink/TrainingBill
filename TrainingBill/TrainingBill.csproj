@@ -67,6 +67,7 @@
       <DependentUpon>EditHorse.cs</DependentUpon>
     </Compile>
     <Compile Include="Expense.cs" />
+    <Compile Include="Horse.cs" />
     <Compile Include="MonthlyRollup.cs">
       <SubType>Form</SubType>
     </Compile>

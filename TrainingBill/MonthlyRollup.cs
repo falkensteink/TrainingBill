@@ -25,7 +25,7 @@ namespace TrainingBill
         private string horseName;
         private string ownerName;
         private string monthlyExpense;
-
+        public Horse horse = new Horse();
         public string HorseName
         {
             get
@@ -67,7 +67,7 @@ namespace TrainingBill
 
         private void MonthlyRollup_Load(object sender, EventArgs e)
         {
-           
+
             RollupRefresh();
 
         }
@@ -75,20 +75,15 @@ namespace TrainingBill
         {
             string sqlRollup;
             string CurrentMonth = DateTime.Now.Month.ToString();
-            sqlRollup = "Select Horses.HorseName, Horses.OwnerName, (Select Sum(Expenses.ExpenseCost) from Expenses where Horses.HorseName = Expenses.HorseName and Expenses.ExpenseMonth = " +CurrentMonth+") as MonthlyExpenses from Horses;";
+            sqlRollup = "Select Horses.HorseName, Horses.OwnerName, (Select Sum(Expenses.ExpenseCost) from Expenses where Horses.HorseName = Expenses.HorseName and Expenses.ExpenseMonth = " + CurrentMonth + ") as MonthlyExpenses from Horses;";
             return sqlRollup;
         }
 
         private void btnAddExpense_Click(object sender, EventArgs e)
         {
             //Load Second form with all infomation on Selected horse
-            
-            
-            AddExpense add = new AddExpense();
-            add.HorseName = HorseName;
-            add.OwnerName = OwnerName;
-            this.Hide();
-            add.Show();
+            AddExpense add = new AddExpense(horse, this);
+            add.ShowDialog();
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -96,35 +91,40 @@ namespace TrainingBill
         }
         private void btnMiscExpense_Click(object sender, EventArgs e)
         {
-            AddExpense add = new AddExpense();
-            add.HorseName = "Miscellaneous Expenses";
-            add.OwnerName = "Jerry Seekman";
-            this.Hide();
-            add.Show();
+
+            horse.Name = "Miscellaneous Expenses";
+            horse.Owner = "Jerry Seekman";
+            AddExpense add = new AddExpense(horse, this);
+
+            add.ShowDialog();
+
         }
-       
+
         private void preloadValues()
         {
-            HorseName = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
-            OwnerName = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
-            MonthlyExpense = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
+            horse.Name = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
+            horse.Owner = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
+            horse.MonthlyTotal = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
         }
         public void RollupRefresh()
         {
             Database db = new Database();
-           dgvMonthlyRollup.DataSource = db.ExecuteDBCommands(GenerateRollup());
+            dgvMonthlyRollup.DataSource = db.ExecuteDBCommands(GenerateRollup());
             preloadValues();
         }
 
         private void dgvMonthlyRollup_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            HorseName = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
-            OwnerName = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
-            MonthlyExpense = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
+            horse.Name = dgvMonthlyRollup.CurrentRow.Cells[0].Value.ToString();
+            horse.Owner = dgvMonthlyRollup.CurrentRow.Cells[1].Value.ToString();
+            horse.MonthlyTotal = dgvMonthlyRollup.CurrentRow.Cells[2].Value.ToString();
         }
 
         private void btnAddHorse_Click(object sender, EventArgs e)
         {
+            EditHorse ed = new EditHorse(this);
+            ed.ShowDialog();
+
 
         }
 
